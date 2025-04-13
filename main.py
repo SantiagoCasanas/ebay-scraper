@@ -3,6 +3,7 @@ from pydantic import BaseModel, EmailStr
 from typing import List
 from scraper import search_items_on_stock
 from notifier import send_items_on_stock
+from scheduler import start_scheduler
 
 app = FastAPI()
 
@@ -10,6 +11,12 @@ class StockCheckRequest(BaseModel):
     items_list: List[str]
     emails: List[EmailStr]
     base_url_itm: str
+
+
+"""@app.on_event("startup")
+def startup_event():
+    start_scheduler()"""
+
 
 @app.get("/")
 def read_root():
